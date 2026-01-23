@@ -1,6 +1,6 @@
-# The New Responsive Video Gallery 📺
+# Responsive Video Gallery
 
-In November 2013 I deployed the [original version](https://github.com/angelajholden/responsivevideogallery) of Responsive Video Gallery. The old gallery used CSS floats, and the modal window was built with jQuery and Fancybox. Twelve years later the gallery has been updated with CSS Grid, and the jQuery has been replaced with 59 lines of vanilla JavaScript. Enjoy! ♥️
+Responsive Video Gallery is a vanilla HTML, CSS and JavaScript project to make video gallerys with YouTube and Vimeo `<iframe>` embeds. Everything here is static, so you can use it as-is, or modfied to fit your project. There's also a <a href="https://github.com/angelajholden/responsivevideogallery_open/tree/dynamic" target="_blank">branch with a dynamic version</a> using JSON data.
 
 ## The HTML
 
@@ -23,7 +23,7 @@ The Vimeo thumbnail src is embedded in the page source code.
 Right click on the Vimeo page and 'View Page Source'.
 Search for an og:image meta tag to find the thumbnail.
 -->
-<meta property="og:image:secure_url" content="https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us" />
+<meta property="og:image" content="https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us" />
 
 <!-- Vimeo thumbnail url -->
 https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us
@@ -89,7 +89,9 @@ img {
 	border-radius: 50%;
 	background-color: #fff;
 	transform: translate(-50%, -50%);
-	transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+	transition:
+		background-color 300ms ease-in-out,
+		border 300ms ease-in-out;
 }
 
 svg {
@@ -152,10 +154,10 @@ Next are styles for the `<dialog>` that holds the video `<iframe>`. The markup f
 
 /* dialog element */
 .dialog_modal {
-	padding: 1.5rem;
+	max-width: min(100%, 150vh);
+	padding: 2rem;
 	border: 0;
 	background-color: transparent;
-	max-width: min(100%, 150vh);
 }
 
 /* iframe container for styling */
@@ -215,84 +217,84 @@ Next are styles for the `<dialog>` that holds the video `<iframe>`. The markup f
 ```javascript
 // wait for the DOM to load
 document.addEventListener("DOMContentLoaded", () => {
-	// define the grid
-	const grid = document.querySelector(".grid");
-	if (!grid) return;
+	// build an array of all videos
+	const videos = document.querySelectorAll(".article");
 
-	// click event for the grid
-	grid.addEventListener("click", (e) => {
+	// loop through the videos
+	videos.forEach((video) => {
 		// define play button + video title
-		const button = e.target.closest(".play_video");
-		if (!button) return;
+		const button = video.querySelector(".play_video");
+		const title = video.querySelector(".video_title");
 
-		const article = button.closest(".article");
-		const title = article.querySelector(".video_title");
+		// click event for the button
+		button.addEventListener("click", (e) => {
+			// make sure all dialogs are removed
+			document.querySelectorAll("dialog.dialog_modal").forEach((d) => d.remove());
 
-		// make sure all dialogs are removed
-		document.querySelectorAll("dialog.dialog_modal").forEach((d) => d.remove());
+			// create dialog element
+			const grid = document.querySelector(".grid");
+			const dialog = document.createElement("dialog");
+			dialog.classList.add("dialog_modal");
+			// insert dialog element
+			grid.insertAdjacentElement("afterend", dialog);
 
-		// create dialog element
-		const dialog = document.createElement("dialog");
-		dialog.classList.add("dialog_modal");
-		// insert dialog element
-		grid.insertAdjacentElement("afterend", dialog);
+			// create close button
+			const closeButton = document.createElement("button");
+			closeButton.classList.add("close_dialog");
+			closeButton.setAttribute("aria-label", "Close Video");
+			closeButton.innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/>';
+			// inset close button
+			dialog.insertAdjacentElement("afterbegin", closeButton);
 
-		// create close button
-		const closeButton = document.createElement("button");
-		closeButton.classList.add("close_dialog");
-		closeButton.setAttribute("aria-label", "Close Video");
-		closeButton.innerHTML = '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/>';
-		// insert close button
-		dialog.insertAdjacentElement("afterbegin", closeButton);
+			// create iframe container
+			const container = document.createElement("div");
+			container.classList.add("dialog_frame");
+			// insert iframe container
+			dialog.insertAdjacentElement("beforeend", container);
 
-		// create iframe container
-		const container = document.createElement("div");
-		container.classList.add("dialog_frame");
-		// insert iframe container
-		dialog.insertAdjacentElement("beforeend", container);
+			// get data attributes
+			const id = e.currentTarget.dataset.attribute;
+			const type = e.currentTarget.dataset.type;
 
-		// get data attributes
-		const id = button.dataset.attribute;
-		const type = button.dataset.type;
+			// create iframe element
+			const iframe = document.createElement("iframe");
+			iframe.setAttribute("title", title.textContent);
+			iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+			iframe.setAttribute("allowfullscreen", "");
+			iframe.setAttribute("frameborder", "0");
+			if (type === "youtube") {
+				iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
+				iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+			} else if (type === "vimeo") {
+				iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
+				iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
+			}
+			// insert iframe
+			container.insertAdjacentElement("beforeend", iframe);
 
-		// create iframe element
-		const iframe = document.createElement("iframe");
-		iframe.setAttribute("title", title.textContent);
-		iframe.setAttribute("frameborder", "0");
-		iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-		iframe.setAttribute("allowfullscreen", "");
-		if (type === "youtube") {
-			iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
-			iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-		} else if (type === "vimeo") {
-			iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
-			iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
-		}
-		// insert iframe
-		container.insertAdjacentElement("beforeend", iframe);
+			// show modal dialog + add body class
+			dialog.showModal();
+			body.classList.add("dialog");
 
-		// show modal dialog + add body class
-		dialog.showModal();
-		body.classList.add("dialog");
-
-		// remove modal dialog + remove body class
-		closeButton.addEventListener("click", () => {
-			dialog.remove();
-			body.classList.remove("dialog");
-		});
-
-		// click backdrop to close dialog
-		dialog.addEventListener("click", (event) => {
-			if (event.target === dialog) {
+			// remove modal dialog + remove body class
+			closeButton.addEventListener("click", () => {
 				dialog.remove();
 				body.classList.remove("dialog");
-			}
+			});
+
+			// click backdrop to close dialog
+			dialog.addEventListener("click", (event) => {
+				if (event.target === dialog) {
+					dialog.remove();
+					body.classList.remove("dialog");
+				}
+			});
 		});
 	});
 });
 ```
 
-This is an example `<dialog>` element for YouTube that's created and added to the DOM with JavaScript:
+This is an example `<dialog>` element that's created and added to the DOM with JavaScript:
 
 ```html
 <dialog class="dialog_modal" open="">
@@ -300,7 +302,7 @@ This is an example `<dialog>` element for YouTube that's created and added to th
 		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"></path></svg>
 	</button>
 	<div class="dialog_frame">
-		<iframe src="https://www.youtube.com/embed/szRgEyiX6Sk" title="Deploy a Website to DigitalOcean 💧 LAMP + SFTP (FileZilla) + DNS Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+		<iframe src="https://www.youtube.com/embed/BiKtBiHBQZQ" title="Heidi is Perfect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 	</div>
 </dialog>
 ```
