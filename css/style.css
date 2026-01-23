@@ -555,10 +555,13 @@ a:active {
 }
 
 .dialog_modal {
+<<<<<<< HEAD
 	padding: 1.5rem;
+=======
+	padding: 2rem 2rem 0 0;
+>>>>>>> parent of 2e51f1f (Merge pull request #2 from iamsumankarki/optimize-branch)
 	border: 0;
 	background-color: transparent;
-	max-width: min(100%, 150vh);
 }
 
 .dialog_frame {
