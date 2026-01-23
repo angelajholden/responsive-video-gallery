@@ -124,7 +124,8 @@
 						A Cup of Coffee in the Morning">
 						<button class="play_video" data-attribute="1153058516" data-type="vimeo" aria-label="Play Video"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M133 440a35.37 35.37 0 01-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0135.77.45l247.85 148.36a36 36 0 010 61l-247.89 148.4A35.5 35.5 0 01133 440z"/></svg></button>
 					</figure>
-					<h3 class="video_title">A Cup of Coffee in the Morning</h3>
+					<h3 class="video_title">
+						A Cup of Coffee in the Morning</h3>
 				</article>
 				<article class="article">
 					<figure class="figure">
@@ -329,10 +330,9 @@
 
 						/* dialog element */
 						.dialog_modal {
-						&nbsp;&nbsp;padding: 1.5rem;
+						&nbsp;&nbsp;padding: 2rem 2rem 0 0;
 						&nbsp;&nbsp;border: 0;
 						&nbsp;&nbsp;background-color: transparent;
-						&nbsp;&nbsp;max-width: min(100%, 150vh);
 						}
 
 						/* iframe container for styling */
@@ -398,85 +398,86 @@
 					<code class="language-javascript">
 						// wait for the DOM to load
 						document.addEventListener("DOMContentLoaded", () => {
-						&nbsp;&nbsp;// define the grid
-						&nbsp;&nbsp;const grid = document.querySelector(".grid");
-						&nbsp;&nbsp;if (!grid) return;
 
-						&nbsp;&nbsp;// click event for the grid
-						&nbsp;&nbsp;grid.addEventListener("click", (e) => {
+						&nbsp;&nbsp;// build an array of all videos
+						&nbsp;&nbsp;const videos = document.querySelectorAll(".article");
+
+						&nbsp;&nbsp;// loop through the videos
+						&nbsp;&nbsp;videos.forEach((video) => {
 
 						&nbsp;&nbsp;&nbsp;&nbsp;// define play button + video title
-						&nbsp;&nbsp;&nbsp;&nbsp;const button = e.target.closest(".play_video");
-						&nbsp;&nbsp;&nbsp;&nbsp;if (!button) return;
+						&nbsp;&nbsp;&nbsp;&nbsp;const button = video.querySelector(".play_video");
+						&nbsp;&nbsp;&nbsp;&nbsp;const title = video.querySelector(".video_title");
 
-						&nbsp;&nbsp;&nbsp;&nbsp;const article = button.closest(".article");
-						&nbsp;&nbsp;&nbsp;&nbsp;const title = article.querySelector(".video_title");
+						&nbsp;&nbsp;&nbsp;&nbsp;// click event for the button
+						&nbsp;&nbsp;&nbsp;&nbsp;button.addEventListener("click", (e) => {
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// make sure all dialogs are removed
-						&nbsp;&nbsp;&nbsp;&nbsp;document.querySelectorAll("dialog.dialog_modal").forEach((d) => d.remove());
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// make sure all dialogs are removed
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.querySelectorAll("dialog.dialog_modal").forEach((d) => d.remove());
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// create dialog element
-						&nbsp;&nbsp;&nbsp;&nbsp;const dialog = document.createElement("dialog");
-						&nbsp;&nbsp;&nbsp;&nbsp;dialog.classList.add("dialog_modal");
-						&nbsp;&nbsp;&nbsp;&nbsp;// insert dialog element
-						&nbsp;&nbsp;&nbsp;&nbsp;grid.insertAdjacentElement("afterend", dialog);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// create dialog element
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const grid = document.querySelector(".grid");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const dialog = document.createElement("dialog");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.classList.add("dialog_modal");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// insert dialog element
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid.insertAdjacentElement("afterend", dialog);
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// create close button
-						&nbsp;&nbsp;&nbsp;&nbsp;const closeButton = document.createElement("button");
-						&nbsp;&nbsp;&nbsp;&nbsp;closeButton.classList.add("close_dialog");
-						&nbsp;&nbsp;&nbsp;&nbsp;closeButton.setAttribute("aria-label", "Close Video");
-						&nbsp;&nbsp;&nbsp;&nbsp;closeButton.innerHTML = '&lt;svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">&lt;path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>';
-						&nbsp;&nbsp;&nbsp;&nbsp;// insert close button
-						&nbsp;&nbsp;&nbsp;&nbsp;dialog.insertAdjacentElement("afterbegin", closeButton);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// create close button
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const closeButton = document.createElement("button");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;closeButton.classList.add("close_dialog");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;closeButton.setAttribute("aria-label", "Close Video");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;closeButton.innerHTML = '&lt;svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">&lt;path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>';
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// inset close button
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.insertAdjacentElement("afterbegin", closeButton);
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// create iframe container
-						&nbsp;&nbsp;&nbsp;&nbsp;const container = document.createElement("div");
-						&nbsp;&nbsp;&nbsp;&nbsp;container.classList.add("dialog_frame");
-						&nbsp;&nbsp;&nbsp;&nbsp;// insert iframe container
-						&nbsp;&nbsp;&nbsp;&nbsp;dialog.insertAdjacentElement("beforeend", container);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// create iframe container
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const container = document.createElement("div");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.classList.add("dialog_frame");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// insert iframe container
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.insertAdjacentElement("beforeend", container);
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// get data attributes
-						&nbsp;&nbsp;&nbsp;&nbsp;const id = button.dataset.attribute;
-						&nbsp;&nbsp;&nbsp;&nbsp;const type = button.dataset.type;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// get data attributes
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const id = e.currentTarget.dataset.attribute;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const type = e.currentTarget.dataset.type;
 
-						&nbsp;&nbsp;&nbsp;&nbsp;// create iframe element
-						&nbsp;&nbsp;&nbsp;&nbsp;const iframe = document.createElement("iframe");
-						&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("title", title.textContent);
-						&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("frameborder", "0");
-						&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-						&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allowfullscreen", "");
-						&nbsp;&nbsp;&nbsp;&nbsp;if (type === "youtube") {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-						&nbsp;&nbsp;&nbsp;&nbsp;} else if (type === "vimeo") {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
-						&nbsp;&nbsp;&nbsp;&nbsp;}
-						&nbsp;&nbsp;&nbsp;&nbsp;// insert iframe
-						&nbsp;&nbsp;&nbsp;&nbsp;container.insertAdjacentElement("beforeend", iframe);
-
-						&nbsp;&nbsp;&nbsp;&nbsp;// show modal dialog + add body class
-						&nbsp;&nbsp;&nbsp;&nbsp;dialog.showModal();
-						&nbsp;&nbsp;&nbsp;&nbsp;body.classList.add("dialog");
-
-						&nbsp;&nbsp;&nbsp;&nbsp;// remove modal dialog + remove body class
-						&nbsp;&nbsp;&nbsp;&nbsp;closeButton.addEventListener("click", () => {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.remove();
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.classList.remove("dialog");
-						&nbsp;&nbsp;&nbsp;&nbsp;});
-
-						&nbsp;&nbsp;&nbsp;&nbsp;// click backdrop to close dialog
-						&nbsp;&nbsp;&nbsp;&nbsp;dialog.addEventListener("click", (event) => {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (event.target === dialog) {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.remove();
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.classList.remove("dialog");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// create iframe element
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const iframe = document.createElement("iframe");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (type === "youtube") {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("title", title.textContent);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("frameborder", "0");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allowfullscreen", "");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else if (type === "vimeo") {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// vimeo
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// insert iframe
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.insertAdjacentElement("beforeend", iframe);
+
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// show modal dialog + add body class
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.showModal();
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.classList.add("dialog");
+
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// remove modal dialog + remove body class
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;closeButton.addEventListener("click", () => {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.remove();
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.classList.remove("dialog");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// click backdrop to close dialog
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.addEventListener("click", (event) => {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (event.target === dialog) {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dialog.remove();
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body.classList.remove("dialog");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 						&nbsp;&nbsp;&nbsp;&nbsp;});
 						&nbsp;&nbsp;});
 						});
 					</code>
 				</pre>
-				<p>This is an example <code class="language-markup">&lt;dialog></code> element for YouTube that's created and added to the DOM with JavaScript:</p>
+				<p>This is an example <code class="language-markup">&lt;dialog></code> element that's created and added to the DOM with JavaScript:</p>
 				<pre>
 					<code class="language-markup">
 						&lt;dialog class="dialog_modal" open="">
@@ -486,13 +487,12 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;&lt;/svg>
 						&nbsp;&nbsp;&lt;/button>
 						&nbsp;&nbsp;&lt;div class="dialog_frame">
-						&nbsp;&nbsp;&nbsp;&nbsp;&lt;iframe
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;iframe src="https://www.youtube.com/embed/szRgEyiX6Sk"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title="Deploy a Website to DigitalOcean 💧 LAMP + SFTP (FileZilla) + DNS Setup"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frameborder="0"
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allowfullscreen=""
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;referrerpolicy="strict-origin-when-cross-origin"
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;src="https://www.youtube.com/embed/szRgEyiX6Sk"
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allowfullscreen="">
 						&nbsp;&nbsp;&nbsp;&nbsp;&lt;/iframe>
 						&nbsp;&nbsp;&lt;/div>
 						&lt;/dialog>
