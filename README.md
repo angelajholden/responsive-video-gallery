@@ -23,7 +23,7 @@ The Vimeo thumbnail src is embedded in the page source code.
 Right click on the Vimeo page and 'View Page Source'.
 Search for an og:image meta tag to find the thumbnail.
 -->
-<meta property="og:image:secure_url" content="https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us" />
+<meta property="og:image" content="https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us" />
 
 <!-- Vimeo thumbnail url -->
 https://i.vimeocdn.com/video/632046499-3b7d2a63050fe87a8f3be5f58e4d913a36b3b2c84f9c19c67b055e98e6e4f05b-d?f=webp®ion=us
@@ -89,7 +89,9 @@ img {
 	border-radius: 50%;
 	background-color: #fff;
 	transform: translate(-50%, -50%);
-	transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+	transition:
+		background-color 300ms ease-in-out,
+		border 300ms ease-in-out;
 }
 
 svg {
@@ -152,7 +154,8 @@ Next are styles for the `<dialog>` that holds the video `<iframe>`. The markup f
 
 /* dialog element */
 .dialog_modal {
-	padding: 2rem 2rem 0 0;
+	max-width: min(100%, 150vh);
+	padding: 2rem;
 	border: 0;
 	background-color: transparent;
 }
@@ -255,15 +258,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			// create iframe element
 			const iframe = document.createElement("iframe");
+			iframe.setAttribute("title", title.textContent);
+			iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+			iframe.setAttribute("allowfullscreen", "");
+			iframe.setAttribute("frameborder", "0");
 			if (type === "youtube") {
 				iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
-				iframe.setAttribute("title", title.textContent);
-				iframe.setAttribute("frameborder", "0");
 				iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-				iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-				iframe.setAttribute("allowfullscreen", "");
 			} else if (type === "vimeo") {
-				// vimeo
+				iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
+				iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
 			}
 			// insert iframe
 			container.insertAdjacentElement("beforeend", iframe);
@@ -298,7 +302,7 @@ This is an example `<dialog>` element that's created and added to the DOM with J
 		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"></path></svg>
 	</button>
 	<div class="dialog_frame">
-		<iframe src="https://www.youtube.com/embed/szRgEyiX6Sk" title="Deploy a Website to DigitalOcean 💧 LAMP + SFTP (FileZilla) + DNS Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+		<iframe src="https://www.youtube.com/embed/BiKtBiHBQZQ" title="Heidi is Perfect" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 	</div>
 </dialog>
 ```

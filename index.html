@@ -330,7 +330,8 @@
 
 						/* dialog element */
 						.dialog_modal {
-						&nbsp;&nbsp;padding: 2rem 2rem 0 0;
+						&nbsp;&nbsp;max-width: min(100%, 150vh);
+						&nbsp;&nbsp;padding: 2rem;
 						&nbsp;&nbsp;border: 0;
 						&nbsp;&nbsp;background-color: transparent;
 						}
@@ -442,15 +443,17 @@
 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// create iframe element
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const iframe = document.createElement("iframe");
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (type === "youtube") {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
+
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("title", title.textContent);
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("frameborder", "0");
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allowfullscreen", "");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("frameborder", "0");
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (type === "youtube") {
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else if (type === "vimeo") {
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// vimeo
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// insert iframe
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container.insertAdjacentElement("beforeend", iframe);
@@ -487,8 +490,8 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;&lt;/svg>
 						&nbsp;&nbsp;&lt;/button>
 						&nbsp;&nbsp;&lt;div class="dialog_frame">
-						&nbsp;&nbsp;&nbsp;&nbsp;&lt;iframe src="https://www.youtube.com/embed/szRgEyiX6Sk"
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title="Deploy a Website to DigitalOcean 💧 LAMP + SFTP (FileZilla) + DNS Setup"
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;iframe src="https://www.youtube.com/embed/BiKtBiHBQZQ"
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title="Heidi is Perfect"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frameborder="0"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;referrerpolicy="strict-origin-when-cross-origin"

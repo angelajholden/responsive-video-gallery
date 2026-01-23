@@ -81,20 +81,16 @@ function createDialog() {
 			const type = e.currentTarget.dataset.type;
 
 			const iframe = document.createElement("iframe");
+			iframe.setAttribute("title", title.textContent);
+			iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+			iframe.setAttribute("allowfullscreen", "");
+			iframe.setAttribute("frameborder", "0");
 			if (type === "youtube") {
 				iframe.setAttribute("src", `https://www.youtube.com/embed/${id}`);
-				iframe.setAttribute("title", title.textContent);
-				iframe.setAttribute("frameborder", "0");
 				iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-				iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-				iframe.setAttribute("allowfullscreen", "");
 			} else if (type === "vimeo") {
-				iframe.setAttribute("title", title.textContent);
 				iframe.setAttribute("src", `https://player.vimeo.com/video/${id}`);
-				iframe.setAttribute("frameborder", "0");
-				iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
 				iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share");
-				iframe.setAttribute("allowfullscreen", "");
 			}
 			container.insertAdjacentElement("beforeend", iframe);
 

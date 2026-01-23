@@ -245,7 +245,9 @@ a:active {
 		transform: translateX(0);
 		background-color: var(--black);
 		color: var(--white);
-		transition: visibility 300ms linear, transform 300ms linear;
+		transition:
+			visibility 300ms linear,
+			transform 300ms linear;
 	}
 
 	.dark .navigation {
@@ -454,7 +456,9 @@ a:active {
 	border-radius: 50%;
 	background-color: var(--white);
 	transform: translate(-50%, -50%);
-	transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+	transition:
+		background-color 300ms ease-in-out,
+		border 300ms ease-in-out;
 }
 
 .gallery_section svg {
@@ -555,11 +559,8 @@ a:active {
 }
 
 .dialog_modal {
-<<<<<<< HEAD
-	padding: 1.5rem;
-=======
-	padding: 2rem 2rem 0 0;
->>>>>>> parent of 2e51f1f (Merge pull request #2 from iamsumankarki/optimize-branch)
+	max-width: min(100%, 150vh);
+	padding: 2rem;
 	border: 0;
 	background-color: transparent;
 }
