@@ -1,6 +1,6 @@
 # Responsive Video Gallery
 
-With semantic HTML, CSS Grid and vanilla JavaScript, create a responsive video gallery with videos from YouTube and Vimeo.
+Responsive Video Gallery is a vanilla HTML, CSS and JavaScript project to make video gallerys with YouTube and Vimeo `<iframe>` embeds. Everything here is static, so you can use it as-is, or modfied to fit your project. There's also a <a href="https://github.com/angelajholden/responsivevideogallery_open/tree/dynamic" target="_blank">branch with a dynamic version</a> using JSON data.
 
 ## The HTML
 
