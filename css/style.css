@@ -258,12 +258,7 @@ a:active {
 		color: var(--white);
 		transition:
 			visibility 300ms linear,
-			transform 300ms linear,
-			background-color 300ms ease-in-out;
-	}
-
-	.dark .navigation {
-		box-shadow: 1px 0 1px 1px rgba(255, 255, 255, 10%);
+			transform 300ms linear;
 	}
 
 	.navigation a {
@@ -673,6 +668,10 @@ body.dark {
 	stroke: var(--black);
 }
 
+.dark .navigation {
+	box-shadow: 1px 0 1px 1px rgba(255, 255, 255, 10%);
+}
+
 .dark .navigation a {
 	text-decoration-color: transparent;
 	color: var(--white);
@@ -756,9 +755,5 @@ body.dark {
 	.wrap:has(.dark_mode-container) {
 		padding: 1rem;
 		justify-content: center;
-	}
-
-	.dark .navigation {
-		background-color: var(--black);
 	}
 }
