@@ -203,6 +203,7 @@ a:active {
 	justify-content: space-between;
 	align-items: center;
 	font-weight: 400;
+	box-shadow: none;
 }
 
 .navigation a {
@@ -620,89 +621,6 @@ a:active {
 	stroke: var(--black);
 }
 
-/* Dark Mode Styles */
-body.dark {
-	color: var(--lt-gray);
-	background-color: var(--black);
-}
-
-.dark .gray_section {
-	background-color: var(--dk-black);
-}
-
-.dark a {
-	color: var(--white);
-	text-decoration-color: var(--white);
-}
-
-.dark a:focus,
-.dark a:hover,
-.dark a:active {
-	text-decoration-color: transparent;
-}
-
-.dark .primary_logo a:focus,
-.dark .primary_logo a:hover,
-.dark .primary_logo a:active {
-	color: var(--green);
-}
-
-.dark .header {
-	background-color: var(--black);
-	box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 10%);
-}
-
-.dark .open_button svg {
-	stroke: var(--white);
-}
-
-.dark .open_button:focus,
-.dark .open_button:hover,
-.dark .open_button:active {
-	background-color: var(--white);
-}
-
-.dark .open_button:focus svg,
-.dark .open_button:hover svg,
-.dark .open_button:active svg {
-	stroke: var(--black);
-}
-
-.dark .navigation {
-	box-shadow: 1px 0 1px 1px rgba(255, 255, 255, 10%);
-}
-
-.dark .navigation a {
-	text-decoration-color: transparent;
-	color: var(--white);
-}
-
-.dark .navigation a:focus,
-.dark .navigation a:hover,
-.dark .navigation a:active {
-	text-decoration-color: var(--white);
-}
-
-.dark .main_nav svg {
-	stroke: var(--white);
-}
-
-.dark .social_nav a:focus,
-.dark .social_nav a:hover,
-.dark .social_nav a:active {
-	background-color: var(--white);
-}
-
-.dark .social_nav a svg {
-	fill: var(--white);
-}
-
-.dark .social_nav a:focus svg,
-.dark .social_nav a:hover svg,
-.dark .social_nav a:active svg {
-	fill: var(--black);
-}
-
 /* Dark Mode Toggle */
 .wrap:has(.dark_mode-container) {
 	display: flex;
@@ -751,9 +669,92 @@ body.dark {
 	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
 }
 
+/* Dark Mode Styles */
+body.dark {
+	color: var(--lt-gray);
+	background-color: var(--black);
+}
+
+.dark .gray_section {
+	background-color: var(--dk-black);
+}
+
+.dark a {
+	color: var(--white);
+	text-decoration-color: var(--white);
+}
+
+.dark a:focus,
+.dark a:hover,
+.dark a:active {
+	text-decoration-color: transparent;
+}
+
+.dark .primary_logo a:focus,
+.dark .primary_logo a:hover,
+.dark .primary_logo a:active {
+	color: var(--green);
+}
+
+.dark .header {
+	background-color: var(--black);
+	box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 10%);
+}
+
+.dark .open_button svg {
+	stroke: var(--white);
+}
+
+.dark .open_button:focus,
+.dark .open_button:hover,
+.dark .open_button:active {
+	background-color: var(--white);
+}
+
+.dark .open_button:focus svg,
+.dark .open_button:hover svg,
+.dark .open_button:active svg {
+	stroke: var(--black);
+}
+
+.dark .navigation a {
+	text-decoration-color: transparent;
+	color: var(--white);
+}
+
+.dark .navigation a:focus,
+.dark .navigation a:hover,
+.dark .navigation a:active {
+	text-decoration-color: var(--white);
+}
+
+.dark .main_nav svg {
+	stroke: var(--white);
+}
+
+.dark .social_nav a:focus,
+.dark .social_nav a:hover,
+.dark .social_nav a:active {
+	background-color: var(--white);
+}
+
+.dark .social_nav a svg {
+	fill: var(--white);
+}
+
+.dark .social_nav a:focus svg,
+.dark .social_nav a:hover svg,
+.dark .social_nav a:active svg {
+	fill: var(--black);
+}
+
 @media (max-width: 1024px) {
 	.wrap:has(.dark_mode-container) {
 		padding: 1rem;
 		justify-content: center;
+	}
+
+	.dark .navigation {
+		box-shadow: 1px 0 1px 1px rgba(255, 255, 255, 10%);
 	}
 }
