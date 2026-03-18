@@ -21,7 +21,7 @@ html {
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+	box-sizing: inherit;
 }
 
 /* 
@@ -576,6 +576,7 @@ a:active {
 	padding: 2rem;
 	border: 0;
 	background-color: transparent;
+	transition: background-color 300ms ease-in-out;
 }
 
 .dialog_frame {
@@ -624,60 +625,10 @@ a:active {
 	stroke: var(--black);
 }
 
-/* Dark Mode */
-.wrap:has(.dark_mode-container) {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 1rem 1rem 0;
-	max-width: 102rem;
-}
-
-.dark_mode-container {
-	width: 75px;
-	height: 35px;
-	border-radius: 50vh;
-	border: 2px solid var(--black);
-	background-color: var(--white);
-	transition: background-color 300ms ease-in-out;
-}
-
-.dark_mode {
-	width: 25px;
-	height: 25px;
-	margin: 3px;
-	border-radius: 50%;
-	transform: translateX(0);
-	background-color: var(--black);
-	transition: transform 150ms linear;
-}
-
-.light_svg svg {
-	fill: var(--yellow);
-	filter: drop-shadow(1px 1px 1px rgba(255, 223, 0, 0.4));
-}
-
-.dark_svg svg {
-	fill: var(--purple);
-	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
-}
-
-.dark .dark_mode-container {
-	background-color: var(--lt-gray);
-}
-
-.dark .dark_mode {
-	transform: translateX(40px);
-}
-
+/* Dark Mode Styles */
 body.dark {
 	color: var(--lt-gray);
 	background-color: var(--black);
-	transition:
-		color 300ms ease-in-out,
-		background-color 300ms ease-in-out;
 }
 
 .dark .gray_section {
@@ -751,6 +702,54 @@ body.dark {
 .dark .social_nav a:hover svg,
 .dark .social_nav a:active svg {
 	fill: var(--black);
+}
+
+/* Dark Mode Toggle */
+.wrap:has(.dark_mode-container) {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem 1rem 0;
+	max-width: 102rem;
+}
+
+.dark_mode-container {
+	width: 75px;
+	height: 35px;
+	border-radius: 50vh;
+	background-color: var(--black);
+	transition: background-color 300ms ease-in-out;
+}
+
+.dark .dark_mode-container {
+	background-color: var(--white);
+}
+
+.dark_mode {
+	width: 25px;
+	height: 25px;
+	margin: 5px;
+	border-radius: 50%;
+	transform: translateX(0);
+	background-color: var(--white);
+	transition: transform 300ms linear;
+}
+
+.dark .dark_mode {
+	transform: translateX(40px);
+	background-color: var(--black);
+}
+
+.light_svg svg {
+	fill: var(--yellow);
+	filter: drop-shadow(1px 1px 1px rgba(255, 223, 0, 0.4));
+}
+
+.dark_svg svg {
+	fill: var(--purple);
+	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.4));
 }
 
 @media (max-width: 1024px) {
