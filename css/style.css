@@ -50,6 +50,9 @@ body {
 	color: var(--black);
 	line-height: 1.65;
 	background-color: var(--white);
+	transition:
+		color 300ms ease-in-out,
+		background-color 300ms ease-in-out;
 }
 
 figure {
@@ -69,6 +72,9 @@ svg {
 	height: 1.333rem;
 	stroke: var(--black);
 	fill: var(--black);
+	transition:
+		stroke 300ms ease-in-out,
+		fill 300ms ease-in-out;
 }
 
 h1,
@@ -101,7 +107,9 @@ a {
 	text-decoration-color: var(--navy);
 	text-decoration-thickness: 2px;
 	text-underline-offset: 3px;
-	transition: text-decoration-color 300ms ease-in-out;
+	transition:
+		text-decoration-color 300ms ease-in-out,
+		color 300ms ease-in-out;
 }
 
 a:focus,
@@ -150,6 +158,9 @@ a:active {
 	background-color: var(--white);
 	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 10%);
 	z-index: 1;
+	transition:
+		background-color 300ms ease-in-out,
+		box-shadow 300ms ease-in-out;
 }
 
 .primary_logo {
@@ -247,7 +258,8 @@ a:active {
 		color: var(--white);
 		transition:
 			visibility 300ms linear,
-			transform 300ms linear;
+			transform 300ms linear,
+			background-color 300ms ease-in-out;
 	}
 
 	.dark .navigation {
@@ -515,6 +527,7 @@ a:active {
 /* Content Sections */
 .gray_section {
 	background-color: var(--lt-gray);
+	transition: background-color 300ms ease-in-out;
 }
 
 .gray_section h3,
@@ -619,13 +632,14 @@ a:active {
 	align-items: center;
 	gap: 0.5rem;
 	padding: 1rem 1rem 0;
+	max-width: 102rem;
 }
 
 .dark_mode-container {
 	width: 75px;
 	height: 35px;
 	border-radius: 50vh;
-	border: 2px solid var(--navy);
+	border: 2px solid var(--black);
 	background-color: var(--white);
 	transition: background-color 300ms ease-in-out;
 }
@@ -636,7 +650,7 @@ a:active {
 	margin: 3px;
 	border-radius: 50%;
 	transform: translateX(0);
-	background-color: var(--navy);
+	background-color: var(--black);
 	transition: transform 150ms linear;
 }
 
@@ -651,7 +665,7 @@ a:active {
 }
 
 .dark .dark_mode-container {
-	background-color: var(--purple);
+	background-color: var(--lt-gray);
 }
 
 .dark .dark_mode {
@@ -661,6 +675,9 @@ a:active {
 body.dark {
 	color: var(--lt-gray);
 	background-color: var(--black);
+	transition:
+		color 300ms ease-in-out,
+		background-color 300ms ease-in-out;
 }
 
 .dark .gray_section {
@@ -676,6 +693,12 @@ body.dark {
 .dark a:hover,
 .dark a:active {
 	text-decoration-color: transparent;
+}
+
+.dark .primary_logo a:focus,
+.dark .primary_logo a:hover,
+.dark .primary_logo a:active {
+	color: var(--green);
 }
 
 .dark .header {
@@ -697,10 +720,6 @@ body.dark {
 .dark .open_button:hover svg,
 .dark .open_button:active svg {
 	stroke: var(--black);
-}
-.dark .navigation {
-	background-color: var(--black);
-	color: var(--white);
 }
 
 .dark .navigation a {
@@ -738,5 +757,9 @@ body.dark {
 	.wrap:has(.dark_mode-container) {
 		padding: 1rem;
 		justify-content: center;
+	}
+
+	.dark .navigation {
+		background-color: var(--black);
 	}
 }
