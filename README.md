@@ -287,6 +287,39 @@ This is an example `<dialog>` element that's created and added to the DOM with J
 </dialog>
 ```
 
+## Structured Data Strategy
+
+This site is primarily a technical tutorial with a working video gallery demonstration. Its structured data should describe that main purpose without treating every demonstration video as a separate watch page.
+
+The intended implementation is a small Schema.org `TechArticle` graph containing only information supported by the visible page:
+
+- The canonical production URL and a stable identifier for the tutorial.
+- The tutorial headline and description.
+- English as the page language.
+- Angela J. Holden as the author, supported by the visible “Written by” attribution in the footer.
+- A screenshot of the finished project as the article image. The structured-data value should use the screenshot's absolute production URL, not a repository-relative path.
+
+The graph intentionally does not include `VideoObject` entries. The videos are examples inside the tutorial rather than the main content of dedicated watch pages. Their players are created in a dialog after user interaction, and the page does not visibly provide all of the metadata that Google expects for video search features, such as an upload date, unique description, and duration for each video. Adding a `VideoObject` for every example would overstate the purpose of the page and create metadata that could become inaccurate when the project is reused.
+
+The project also intentionally does not add ordinary links to the YouTube and Vimeo watch pages. The video IDs and provider types are used only to create the embedded players when a visitor selects a thumbnail.
+
+Structured data can help search engines understand the tutorial, but a valid `TechArticle` does not guarantee a Google rich result. The markup should remain smaller than the visible content it describes and should not introduce facts that are absent from the page.
+
+### Considerations for Forks
+
+Structured data is site-specific even when the HTML, CSS, and JavaScript are reusable. Anyone publishing a fork should review the complete graph rather than inheriting the original project's identity and URLs unchanged.
+
+Before deploying a fork:
+
+- Replace the canonical URL, `@id`, `url`, and `mainEntityOfPage` values with URLs from the deployed site.
+- Replace or remove the author details so they match a visible author attribution on the fork.
+- Replace the article image with an absolute URL for a representative image that is visible on, or clearly represents, the forked page.
+- Update the headline, description, and language when the visible page content changes.
+- Remove `TechArticle` if the page is no longer primarily a technical tutorial.
+- Do not add `datePublished`, `dateModified`, publisher details, proficiency levels, or other properties unless those facts are accurate and supported by the published page.
+- Consider `VideoObject` only if a video becomes prominent, watchable on the indexed page, and is accompanied by the required visible and accurate metadata. A gallery item alone is not a reason to add video schema.
+- Validate the deployed page with Google's Rich Results Test and the Schema.org validator after making changes.
+
 ## Design & Assets
 
 The visual design and project assets are my original work unless otherwise noted.
