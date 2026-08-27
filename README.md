@@ -1,6 +1,6 @@
 # Responsive Video Gallery
 
-Responsive Video Gallery is a vanilla HTML, CSS and JavaScript project to make video gallerys with YouTube and Vimeo `<iframe>` embeds. Everything here is static, so you can use it as-is, or modfied to fit your project.
+Responsive Video Gallery is a vanilla HTML, CSS and JavaScript project to make video galleries with YouTube and Vimeo `<iframe>` embeds. Everything here is static, so you can use it as-is, or modified to fit your project.
 
 ## The HTML
 
@@ -286,3 +286,11 @@ This is an example `<dialog>` element that's created and added to the DOM with J
 	</div>
 </dialog>
 ```
+
+## Design & Assets
+
+The visual design and project assets are my original work unless otherwise noted.
+
+- The code in this repository is 100% original and written by me.
+- Images, graphics, mockups, and media assets are provided for demonstration and educational purposes.
+- If a third-party font, API, library, or service is used, keep its original license and attribution with the project.
